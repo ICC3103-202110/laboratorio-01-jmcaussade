@@ -14,6 +14,7 @@ print(Numero_Cartas)
 print(Lista1)
 print(Lista2)
 print("#####")
+
 #parte 2                    
 Lista1_Random=[]
 Lista2_Random=[]
@@ -34,6 +35,30 @@ print("Lista1_Random ", Lista1_Random)
 print("Lista 2 ",Lista2)
 print("Lista2_Random ", Lista2_Random)
 print("Lista Maestra ",Lista_Maestra)
+
+#parte 3
+Jugador1=0
+Jugador2=0
+
+#parte 4
+#imprimir tablero con coordenadas
+Tablero=[]
+i=0
+while i<len(Lista_Maestra):
+    r=0
+    Sub_Tablero=[]
+    while r<len(Lista_Maestra[0]):
+        Coordenadas=[]
+        Coordenadas.append(i)
+        Coordenadas.append(r)
+        Sub_Tablero.append(Coordenadas)
+        r+=1
+    Tablero.append(Sub_Tablero)
+    print(Sub_Tablero)
+    i+=1
+
+
+
 
 
     
