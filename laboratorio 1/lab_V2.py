@@ -1,8 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar 26 15:49:07 2021
+
+@author: Lenovo
+"""
 from numpy import random
 
 #parte 4
 #Shows board with coordinates
-def Creat_Board(List):
+def Create_Board(List):
     Board=[]
     i=0
     while i<len(List):
@@ -22,27 +28,21 @@ def Creat_Board(List):
 
 #parte 5 (Asks for the card coordinates)
 def Input_Card_Coordinates():
-    String=str(input("Ingresa las coordenadas te tu carta: "))
-    print(String)
+    String=str(input("Choose your coordinates: "))
     h=["(",")","."]
     for h in String:
         String=String.replace("(","")
         String=String.replace(")","")
         String=String.replace(".",",")
-    print(String)
     Lista_Carta_Elegida=String.split(",")
-    print(Lista_Carta_Elegida)
     return(Lista_Carta_Elegida)
 
 
 #parte 7 (Shows one chosen card in board)
 def Show_Card_in_Board(List_Coordinates,List_Board,List_Values):
     x=int(List_Coordinates[0])#x coordinate
-    print("valor x",x)
     y=int(List_Coordinates[1]) #y coordinate
-    print("valor y",y)
     Value=List_Values[x][y]#valor al que corresponde la coordenada
-    print("value",Value,"\n") #hasta qui bien
     List_Board[x].pop(y)
     List_Board[x].insert(y,Value)
     return List_Board
@@ -51,20 +51,14 @@ def Show_Card_in_Board(List_Coordinates,List_Board,List_Values):
 #parte 9 (Shows 2 chosen cads in board)
 def Show_Cards_in_Board(List_Coordinates1,List_Coordinates2,List_Board,List_Values):
     x1=int(List_Coordinates1[0])#x coordinate
-    print("valor x1",x1)
     y1=int(List_Coordinates1[1]) #y coordinate
-    print("valor y1",y1)
     Value1=List_Values[x1][y1]#valor al que corresponde la coordenada
-    print("value",Value1,"\n") #hasta qui bien
     List_Board[x1].pop(y1)
     List_Board[x1].insert(y1,Value1)
     #####
     x2=int(List_Coordinates2[0])#x coordinate
-    print("valor x2",x2)
     y2=int(List_Coordinates2[1]) #y coordinate
-    print("valor y2",y2)
     Value2=List_Values[x2][y2]#valor al que corresponde la coordenada
-    print("value2",Value2,"\n") #hasta qui bien
     List_Board[x2].pop(y2)
     List_Board[x2].insert(y2,Value2)
     return List_Board
@@ -75,58 +69,122 @@ def Print_Board(List):
     while i<len(List):
         print(List[i])
         i+=1 
+        
 
-    
+def Delete_Cards_in_Board(List_Coordinates1,List_Coordinates2,List_Board,List_Values):
+    x1=int(List_Coordinates1[0])#x coordinate
+    y1=int(List_Coordinates1[1]) #y coordinate
+    Value1=List_Values[x1][y1]#valor al que corresponde la coordenada
+    List_Board[x1].pop(y1)
+    List_Board[x1].insert(y1,"  ")
+    #####
+    x2=int(List_Coordinates2[0])#x coordinate
+    y2=int(List_Coordinates2[1]) #y coordinate
+    Value2=List_Values[x2][y2]#valor al que corresponde la coordenada
+    List_Board[x2].pop(y2)
+    List_Board[x2].insert(y2,"  ")
+    return List_Board
+ 
+
+def Compare_Cards(List_Coordinates1,List_Coordinates2,List_Board,Board):
+    x1=int(List_Coordinates1[0])#x coordinate
+    y1=int(List_Coordinates1[1]) #y coordinate
+    x2=int(List_Coordinates2[0])#x coordinate
+    y2=int(List_Coordinates2[1]) #y coordinate
+    List_Board[x1].pop(y1)
+    List_Board[x1].insert(y1,Board[x1][y1-1])
+    List_Board[x2].pop(y2)
+    List_Board[x2].insert(y2,Board[x2][y2-1]) 
+    return List_Board
+
+
+####################################################################
+   
 #parte 1
-Numero_Cartas=int(input("Ingresa el número de cartas: "))
-Lista1=[]
-Lista2=[]
+Number_of_Cards=int(input("Enter the number of cards you whant to play with: "))
+List1=[]
+List2=[]
 i=0
 r=1
-while i<Numero_Cartas:
-    Lista1.append(r)            #falta borrar los prints
-    Lista2.append(r)
+while i<Number_of_Cards:
+    List1.append(r)            #falta borrar los prints
+    List2.append(r)
     r+=1
     i+=1
-print(Numero_Cartas)
-print(Lista1)
-print(Lista2)
-print("#####")
+
 
 #parte 2                    
-Lista1_Random=[]
-Lista2_Random=[]
+List1_Random=[]
+List2_Random=[]
 i=0
-while i<Numero_Cartas:
-    x=random.choice(Lista1)
-    Lista1_Random.append(x)
-    Lista1.remove(x)
-    y=random.choice(Lista2)
-    Lista2_Random.append(y)
-    Lista2.remove(y)
+while i<Number_of_Cards:
+    x=random.choice(List1)
+    List1_Random.append(x)
+    List1.remove(x)
+    y=random.choice(List2)
+    List2_Random.append(y)
+    List2.remove(y)
     i+=1
-Lista_Maestra=[]             #falta borrar los prints
-Lista_Maestra.append(Lista1_Random)
-Lista_Maestra.append(Lista2_Random)
-print("Lista 1 ",Lista1)                
-print("Lista1_Random ", Lista1_Random)
-print("Lista 2 ",Lista2)
-print("Lista2_Random ", Lista2_Random)
-print("Lista Maestra ",Lista_Maestra)#lista con valores de las cartas
+Master_List=[]             #falta borrar los prints
+Master_List.append(List1_Random)
+Master_List.append(List2_Random)
 
 #parte 3
-Jugador1=0
-Jugador2=0
+Player1=0
+Player2=0
 
+##########################################
+print("Player one starts ")
+Coordinates_Board=Create_Board(Master_List)
+v=0
+Space_Counter=0
 
-List_First_Coordinate=Input_Card_Coordinates()
-print(Show_Card_in_Board(List_First_Coordinate,Creat_Board(Lista_Maestra),Lista_Maestra))
+while Space_Counter<len(Master_List[0]):  
+    Player1_Coordinates1=Input_Card_Coordinates()
+    Print_Board(Show_Card_in_Board(Player1_Coordinates1,Coordinates_Board,Master_List))
+    print("Player plays ##: ")
+    Player1_Coordinates2=Input_Card_Coordinates()
+    Print_Board(Show_Cards_in_Board(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Master_List))
+    x1=int(Player1_Coordinates1[0])
+    y1=int(Player1_Coordinates1[1])
+    x2=int(Player1_Coordinates2[0])
+    y2=int(Player1_Coordinates2[1])
+    if Master_List[x1][y1]==Master_List[x2][y2]:
+        print("Player one has found a pair ")
+        Player1+=1  
+        Space_Counter+=1
+        if Space_Counter==len(Master_List):
+            break
+        else: 
+            Print_Board(Delete_Cards_in_Board(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Master_List))
+            print("Player one plays again ")
+        continue
+    else:
+        print("Player one has missed ")
+        Print_Board(Compare_Cards(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Coordinates_Board))
+        print("Player 2 plays ")
+    ####Player 2
+    Player1_Coordinates2=Input_Card_Coordinates()
+    Print_Board(Show_Cards_in_Board(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Master_List))
+    x1=int(Player1_Coordinates1[0])
+    y1=int(Player1_Coordinates1[1])
+    x2=int(Player1_Coordinates2[0])
+    y2=int(Player1_Coordinates2[1])
+    if Master_List[x1][y1]==Master_List[x2][y2]:
+        print("Player two has found a pair ")
+        Player2+=1  
+        Space_Counter+=1
+        if Space_Counter==len(Master_List[0]):
+            break
+        else: 
+            Print_Board(Delete_Cards_in_Board(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Master_List))
+            print("Player two plays again ")
+        continue
+    else:
+        print("Player two has missed ")
+        Print_Board(Compare_Cards(Player1_Coordinates1,Player1_Coordinates2,Coordinates_Board,Coordinates_Board)) 
     
-
-print("########################################")
-
-
-
-
-Print_Board(Show_Cards_in_Board(List_First_Coordinate,Input_Card_Coordinates(),Creat_Board(Lista_Maestra),Lista_Maestra))
-########## hasta aqui bien
+if Player1<Player2:
+    print("Player 2 has won ")
+else:
+    print("Player 1 has won ")
